@@ -19,10 +19,14 @@ SELECT * FROM article_views ORDER BY count DESC {limit};
 
 #Question 2: authors ranked by article views
 QUESTION2 = """
-SELECT SUM(article_views.count), authors.name FROM article_views 
+SELECT SUM(named_authors.count), named_authors.name FROM 
+    (SELECT article_views.count, authors.name FROM article_views 
     INNER JOIN authors 
-    ON article_views.author = authors.id 
-    GROUP BY authors.name, article_views.count ORDER BY article_views.count DESC;
+    ON article_views.author = authors.id) 
+        AS named_authors
+GROUP BY named_authors.name
+ORDER BY sum DESC;
+
 """
 
 
@@ -80,8 +84,8 @@ conn = get_con()
 
 print("Connected...")
 #TopArticles(conn, 3)
-#TopAuthors(conn)
-HighErrorRates(conn)
+TopAuthors(conn)
+#HighErrorRates(conn)
 
 
 """
