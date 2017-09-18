@@ -1,18 +1,20 @@
 import psycopg2
 
 # Question 1 and 2 require view: article_views
-# CREATE VIEW article_views AS 
-#   SELECT COUNT(REPLACE(path, '/article/', '')), articles.slug, articles.id, articles.author 
-#       FROM articles 
-#       INNER JOIN log 
-#       ON articles.slug 
-#       LIKE REPLACE(path, '/article/', '') 
-#       GROUP BY articles.slug, articles.id 
-#       ORDER BY count DESC;
+"""
+CREATE VIEW article_views AS 
+SELECT COUNT(REPLACE(path, '/article/', '')), articles.slug, articles.title, articles.author 
+    FROM articles 
+    INNER JOIN log 
+    ON articles.slug 
+    LIKE REPLACE(path, '/article/', '') 
+    GROUP BY articles.slug, articles.id 
+    ORDER BY count DESC;
+"""
 
 #Question 1: the top 3 articles
 QUESTION1 = """
-SELECT * FROM article_views ORDER BY count DESC LIMIT 3;
+SELECT * FROM article_views ORDER BY count DESC {limit};
 """
 
 #Question 2: authors ranked by article views
@@ -22,7 +24,9 @@ SELECT SUM(count), author FROM article_views GROUP BY author ORDER BY sum DESC;
 
 
 # Question 3 requires view: dailyStatus
-# CREATE VIEW dailyStatus AS SELECT COUNT(status), status, LEFT(CAST(time AS TEXT), 10) AS day FROM log GROUP BY day, status;
+"""
+CREATE VIEW dailyStatus AS SELECT COUNT(status), status, LEFT(CAST(time AS TEXT), 10) AS day FROM log GROUP BY day, status;
+"""
 
 #Question 3: days with error rates greater than 1%
 QUESTION3 = """
@@ -39,6 +43,32 @@ WHERE percents.percent > 0.01 ORDER BY day DESC;                            -- 5
 
 """
 
+def TopArticles(conn, count):
+    print("\nTOP " + str(count) + " ARTICLES")
+    q1 = QUESTION1.replace("{limit}", "LIMIT " + str(count))
+    cursor = conn.cursor()
+    cursor.execute(q1)
+    #results = cursor.fetchall()
+    #print(results)
+    for row in cursor:
+        print( '"' + row[2] + '" -- ' + str(row[0]) + ' views')
+
+
+def TopAuthors(conn):
+    print("\nTOP AUTHORS")
+    cursor = conn.cursor()
+    cursor.execute(QUESTION2)
+    results = cursor.fetchall()
+    print(results)
+
+
+def HighErrorRates(conn):
+    print("\nHIGH ERROR RATES")
+    cursor = conn.cursor()
+    cursor.execute(QUESTION3)
+    results = cursor.fetchall()
+    print(results)
+
 
 def get_con():
     return psycopg2.connect('dbname=news')
@@ -46,10 +76,15 @@ def get_con():
 
 
 conn = get_con()
-cursor = conn.cursor()
 
 print("Connected...")
+TopArticles(conn, 3)
+#TopAuthors(conn)
+#HighErrorRates(conn)
 
+
+"""
 cursor.execute(QUESTION2)
 print(cursor.fetchall())
+"""
 
