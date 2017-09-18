@@ -19,7 +19,10 @@ SELECT * FROM article_views ORDER BY count DESC {limit};
 
 #Question 2: authors ranked by article views
 QUESTION2 = """
-SELECT SUM(count), author FROM article_views GROUP BY author ORDER BY sum DESC;
+SELECT SUM(article_views.count), authors.name FROM article_views 
+    INNER JOIN authors 
+    ON article_views.author = authors.id 
+    GROUP BY authors.name, article_views.count ORDER BY article_views.count DESC;
 """
 
 
@@ -48,8 +51,6 @@ def TopArticles(conn, count):
     q1 = QUESTION1.replace("{limit}", "LIMIT " + str(count))
     cursor = conn.cursor()
     cursor.execute(q1)
-    #results = cursor.fetchall()
-    #print(results)
     for row in cursor:
         print( '"' + row[2] + '" -- ' + str(row[0]) + ' views')
 
@@ -58,16 +59,16 @@ def TopAuthors(conn):
     print("\nTOP AUTHORS")
     cursor = conn.cursor()
     cursor.execute(QUESTION2)
-    results = cursor.fetchall()
-    print(results)
+    for row in cursor:
+        print( '"' + str(row[1]) + '" -- ' + str(row[0]) + ' views')
 
 
 def HighErrorRates(conn):
     print("\nHIGH ERROR RATES")
     cursor = conn.cursor()
     cursor.execute(QUESTION3)
-    results = cursor.fetchall()
-    print(results)
+    for row in cursor:
+        print( str(row[0]) + ' -- ' + str(format(row[1], "0.2f")) + '% errors')
 
 
 def get_con():
@@ -78,9 +79,9 @@ def get_con():
 conn = get_con()
 
 print("Connected...")
-TopArticles(conn, 3)
+#TopArticles(conn, 3)
 #TopAuthors(conn)
-#HighErrorRates(conn)
+HighErrorRates(conn)
 
 
 """
