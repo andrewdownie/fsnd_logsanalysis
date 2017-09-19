@@ -5,7 +5,7 @@ Within the vagrant environment run the command:
 
 # Program design:
 The sql commands are at the top of the file, including the creation of views.
-The database is connected to, and the commands are executed at the bottom of the project and each question has a function dedicated to answer it.
+The database is connected to, and the commands are executed at the bottom of the project where each question has a function dedicated to answer it.
 
 
 # The views needed for this program are:
