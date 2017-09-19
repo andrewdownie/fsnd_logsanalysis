@@ -1,12 +1,14 @@
-#To run this program, within the vagrant environment run the command:
+# To run this program
+Within the vagrant environment run the command:
     `python3 databaseAnalysis.py`
 
 
-#Program design:
+# Program design:
     The sql commands are at the top of the file, including the creation of views.
+    The database is connected to, and the commands are executed at the bottom of the project and each question has a function dedicated to answer it.
 
 
-#The views needed for this program are:
+# The views needed for this program are:
 ## article_views for questions 1 and 2
 `CREATE VIEW article_views AS
 SELECT COUNT(REPLACE(path, '/article/', '')),
