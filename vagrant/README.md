@@ -10,7 +10,7 @@ Describe what the purpose of the project is and what your program does. For exam
 # Project Setup
 ## Setting up the vagrant environment
 ### Download the vagrant environment file:
-Download the vagrant environment file, and put it into a folder.
+Download the vagrant environment file, and put it into a folder (make sure to save it without a file extension).
 https://github.com/udacity/fullstack-nanodegree-vm/blob/master/vagrant/Vagrantfile
 ### Download and start the vagrant environment:
 With a terminal, navigate to the folder you created, with the vagrant environment file, and run the following command:
