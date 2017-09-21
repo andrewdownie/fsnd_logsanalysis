@@ -55,7 +55,7 @@ One method to create the required article_views and daily_status views is from w
 
 
 # Running this project 
-make sure the ```databaseAnalysis.py script from this repo is in the vagrant folder, and run:
+make sure the databaseAnalysis.py script from this repo is in the vagrant folder, and run:
 ```python
 python3 databaseAnalysis.py
 ```
