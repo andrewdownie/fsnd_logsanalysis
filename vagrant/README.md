@@ -1,19 +1,32 @@
 # About this project
-This project requires vagrant, to setup vagrant see: <link to udacity vagrant setup instructions>
+This project requires vagrant, and virtual box:
+https://www.vagrantup.com/ 
+https://www.virtualbox.org/wiki/Downloads
 
-TODO 
-TODO 
-TODO 
-TODO 
-Describe what the purpose of the project is and what your program does. For example, you could mention that your Python script uses psycopg2 to query a mock PostgreSQL database for a fictional news website. You could discuss how the news database is structured, and what questions your script answers in the report it generates.
 
-# Project Setup
+## Outline
+The purpose of this project it to make three analysis on a mock news website database using sql. To do this, the python script databaseAnalysis.py using psycopg2 makes sql queries to a psql database.
+
+### The database being queried has three tables:
+1. articles - Holds article metadata, as well as the article themselves.
+2. authors - Holds information about authors that write articles.
+3. log - Holds information about accesses to the website.
+
+### The three analysis on the database:
+The three analysis on the database that this program performs are:
+1. Top 3 articles by number of views.
+2. Authors ranked by the sum of all of their articles views.
+3. Days that experienced greater than 1% error rates, in terms of http responses.
+
+
+# Getting started with this project
 ## Setting up the vagrant environment
+It is assumed you already have virtual box and vagrant installed.
 ### Download the vagrant environment file:
 Download the vagrant environment file, and put it into a folder.
 https://github.com/udacity/fullstack-nanodegree-vm/blob/master/vagrant/Vagrantfile
 ### Download and start the vagrant environment:
-With a terminal, navigate to the folder you created, with the vagrant environment file, and run the following command:
+With a terminal, navigate to the folder you created with the vagrant environment file, and run the following command:
 ```bash
 vagrant up
 ```
@@ -28,9 +41,9 @@ vagrant ssh
 https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip
 
 ### Extract the newsdata.sql file: 
-Extract the newsdata.sql file into the vagrant folder from the newsdata.zip.
+Extract the newsdata.sql file from the newsdata.zip into the vagrant folder you created earlier.
 
-From within a ssh session with the vagrant environment, run the command line command:
+From within a terminal ssh session with the vagrant environment, navigate to ```/vagrant``` and run the command line command:
 ```
 psql -d news -f newsdata.sql
 ```
@@ -50,10 +63,6 @@ and then copy and paste, one at a time, the sql at the bottom of this file to cr
 ```python
 python3 databaseAnalysis.py
 ```
-
-
-# Program design:
-The sql commands are at the top of the file, including the creation of views.
 
 
 # The views needed for this program are:
