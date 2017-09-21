@@ -23,7 +23,7 @@ The three analysis on the database that this program performs are:
 ## Setting up the vagrant environment
 It is assumed you already have virtual box and vagrant installed.
 ### Download the vagrant environment file:
-Download the vagrant environment file, and put it into a folder.
+Download the vagrant environment file, and put it into a folder (make sure to save it without a file extension).
 https://github.com/udacity/fullstack-nanodegree-vm/blob/master/vagrant/Vagrantfile
 ### Download and start the vagrant environment:
 With a terminal, navigate to the folder you created with the vagrant environment file, and run the following command:
